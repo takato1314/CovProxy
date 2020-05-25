@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-namespace CovProxy.UWP
+﻿namespace CovProxy.UWP
 {
     public sealed partial class MainPage
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            Xamarin.FormsMaps.Init("wcUUshTxqkQEwKmgubhQ~tVfbci03PLX0wCbzinbnHg~AvTmaKgTUD_IBRyNe02CQ58S6U0KaMKyTYv0q6fbzzFKy2VMGDqbjaC-XOncuU1b");
 
             LoadApplication(new CovProxy.App());
         }
