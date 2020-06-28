@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CovProxy.Views.NewTripEntryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:CovProxy.ViewModels;assembly=CovProxy"
+    mc:Ignorable="d">
+
+    <ContentPage.BindingContext>
+        <viewModels:NewTripEntryViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <TableView Intent="Form">
+            <TableView.Root>
+                <TableSection>
+                    <EntryCell Label="Location" Text="{Binding Location}" />
+                    <EntryCell
+                        Keyboard="Numeric"
+                        Label="Latitude"
+                        Text="{Binding Latitude}" />
+                    <EntryCell
+                        Keyboard="Numeric"
+                        Label="Longitude"
+                        Text="{Binding Longitude}" />
+                    <EntryCell Label="VisitedOn" Text="{Binding VisitedOn, StringFormat='{0:d}'}" />
+                    <EntryCell Label="Notes" Text="{Binding Notes}" />
+                </TableSection>
+            </TableView.Root>
+        </TableView>
+
+    </ContentPage.Content>
+</ContentPage>

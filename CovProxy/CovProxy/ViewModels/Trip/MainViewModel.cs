@@ -1,32 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using CovProxy.Models;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace CovProxy.Views
+namespace CovProxy.ViewModels
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public class MainViewModel : BaseViewModel
     {
-        public MainPage()
+        public MainViewModel()
         {
-            InitializeComponent();
             GetTripLogEntries();
         }
 
         #region Properties
 
-        public List<TripLogEntry> TripLogEntries { get; set; }
+        ObservableCollection<TripLogEntry> _logEntries;
+        public ObservableCollection<TripLogEntry> LogEntries
+        {
+            get => _logEntries;
+            set
+            {
+                _logEntries = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
-        #region Public
-
         public void GetTripLogEntries()
         {
-            TripLogEntries = new List<TripLogEntry>
+            LogEntries = new ObservableCollection<TripLogEntry>
             {
                 new TripLogEntry
                 {
@@ -62,27 +64,6 @@ namespace CovProxy.Views
                     Notes = "Foggy, but beautiful"
                 }
             };
-
-            LoggingList.ItemsSource = TripLogEntries;
-        }
-
-        #endregion
-
-        private async void MenuItem_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NewEntryPage());
-        }
-
-        private async void LoggingList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var trip = (TripLogEntry) e.CurrentSelection.
-                FirstOrDefault();
-            if (trip != null)
-            {
-                await Navigation.PushAsync(new TripDetailPage(trip));
-            }
-            // Clear selection
-            LoggingList.SelectedItem = null;
         }
     }
 }

@@ -6,8 +6,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:CovProxy.ViewModels;assembly=CovProxy"
     Title="Logging Page"
     mc:Ignorable="d">
+
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="MenuItem_OnClicked" Text="New" />
@@ -15,7 +20,11 @@
 
     <ContentPage.Content>
 
-        <CollectionView x:Name="LoggingList" SelectionMode="Single" SelectionChanged="LoggingList_OnSelectionChanged">
+        <CollectionView
+            x:Name="LoggingList"
+            ItemsSource="{Binding LogEntries}"
+            SelectionChanged="LoggingList_OnSelectionChanged"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">

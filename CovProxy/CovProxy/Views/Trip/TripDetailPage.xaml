@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     x:Class="CovProxy.Views.TripDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -6,6 +7,8 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:CovProxy.Models;assembly=CovProxy"
+    x:Name="Root"
     mc:Ignorable="d">
     <ContentPage.Content>
 
@@ -16,7 +19,7 @@
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <maps:Map x:Name="map" Grid.RowSpan="3" />
+            <maps:Map x:Name="Map" Grid.RowSpan="3" />
 
             <BoxView
                 Grid.Row="1"
@@ -24,9 +27,15 @@
                 Opacity=".8" />
 
             <StackLayout Grid.Row="1" Padding="10">
-                <Label x:Name="location" HorizontalOptions="Center" />
-                <Label x:Name="visitedOn" HorizontalOptions="Center" />
-                <Label x:Name="notes" HorizontalOptions="Center" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding DetailViewModel.Entry.Location.Name, Source={x:Reference Root}, StringFormat='{0:M}'}" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding DetailViewModel.Entry.VisitedOn, Source={x:Reference Root}, StringFormat='{0:M}'}" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding DetailViewModel.Entry.Notes, Source={x:Reference Root}}" />
             </StackLayout>
 
         </Grid>

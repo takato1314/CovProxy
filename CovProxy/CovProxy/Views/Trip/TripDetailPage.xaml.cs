@@ -1,4 +1,5 @@
 ﻿using CovProxy.Models;
+using CovProxy.ViewModels.Trip;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Maps;
@@ -10,15 +11,15 @@ namespace CovProxy.Views
     {
         public TripDetailPage(TripLogEntry tripLogEntry)
         {
+            BindingContext = new DetailViewModel(tripLogEntry);
             InitializeComponent();
-            TripLogEntry = tripLogEntry;
 
             LoadData();
         }
 
         #region Properties
 
-        public TripLogEntry TripLogEntry { get; set; }
+        public DetailViewModel DetailViewModel => BindingContext as DetailViewModel;
 
         #endregion
 
@@ -26,20 +27,17 @@ namespace CovProxy.Views
 
         public void LoadData()
         {
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(
-                new Position(TripLogEntry.Location.Latitude,
-                    TripLogEntry.Location.Longitude),
+            Map.MoveToRegion(MapSpan.FromCenterAndRadius(
+                new Position(DetailViewModel.Entry.Location.Latitude,
+                    DetailViewModel.Entry.Location.Longitude),
                 Distance.FromMiles(.5)));
-            map.Pins.Add(new Pin
+            Map.Pins.Add(new Pin
             {
                 Type = PinType.Place,
-                Label = TripLogEntry.Location.Name,
-                Position = new Position(TripLogEntry.Location.Latitude, TripLogEntry.Location.Longitude)
+                Label = DetailViewModel.Entry.Location.Name,
+                Position = new Position(DetailViewModel.Entry.Location.Latitude,
+                    DetailViewModel.Entry.Location.Longitude)
             });
-
-            location.Text = TripLogEntry.Location.Name;
-            visitedOn.Text = TripLogEntry.VisitedOn.ToString("M");
-            notes.Text = TripLogEntry.Notes;
         }
 
         #endregion
